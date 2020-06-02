@@ -3,7 +3,6 @@ package com.ldf.calendar.behavior;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
@@ -11,18 +10,18 @@ import com.ldf.calendar.Utils;
 import com.ldf.calendar.component.CalendarViewAdapter;
 import com.ldf.calendar.interf.OnCalendarStateChangeListen;
 import com.ldf.calendar.view.MonthPager;
-import java.lang.reflect.*;
+
+import java.lang.reflect.Type;
 
 /**
  * Created by ldf on 17/6/15.
  */
 
 /**
- *  Modify by zzerX on 20/5/10.
- *  <T extends ViewGroup & OnCalendarStateChangeListen>
- *     用于规定与MothPager联动的View的类型{@link  LinkageViewBehavior},
- *     使其可以使用RecyclerView ViewPager 等视作为联动
- *
+ * Modify by zzerX on 20/5/10.
+ * <T extends ViewGroup & OnCalendarStateChangeListen>
+ * 用于规定与MothPager联动的View的类型{@link  LinkageViewBehavior},
+ * 使其可以使用RecyclerView ViewPager 等视作为联动
  */
 
 public class MonthPagerBehavior<T extends View & OnCalendarStateChangeListen> extends CoordinatorLayout.Behavior<MonthPager> {
@@ -33,9 +32,9 @@ public class MonthPagerBehavior<T extends View & OnCalendarStateChangeListen> ex
 
     @Override
     public boolean layoutDependsOn(CoordinatorLayout parent, MonthPager child, View dependency) {
-		Type superclass = this.getClass();
-		//Type type = ((ParameterizedType) superclass).getActualTypeArguments()[0]; 
-		Log.v("type","泛型类型"  + superclass);
+        Type superclass = this.getClass();
+        //Type type = ((ParameterizedType) superclass).getActualTypeArguments()[0];
+        Log.v("type", "泛型类型" + superclass);
         return dependency instanceof View;
     }
 
@@ -80,7 +79,7 @@ public class MonthPagerBehavior<T extends View & OnCalendarStateChangeListen> ex
                             saveTop(child.getViewHeight());
                             Utils.scrollTo(parent, (T) parent.getChildAt(1), child.getViewHeight(), 10);
                             isVerticalScroll = false;
-                            child.onCalendarStateChange(true,OnCalendarStateChangeListen.MonthScrollFull);//回调日历状态改变
+                            child.onCalendarStateChange(true, OnCalendarStateChangeListen.MonthScrollFull);//回调日历状态改变
                         } else {
                             //正常下滑
                             saveTop((int) (child.getCellHeight() + ((ev.getY() - downY))));
@@ -98,7 +97,7 @@ public class MonthPagerBehavior<T extends View & OnCalendarStateChangeListen> ex
                             saveTop(child.getCellHeight());
                             Utils.scrollTo(parent, (T) parent.getChildAt(1), child.getCellHeight(), 10);
                             isVerticalScroll = false;
-                            child.onCalendarStateChange(false,OnCalendarStateChangeListen.MonthScrollFull);//回调日历状态改变
+                            child.onCalendarStateChange(false, OnCalendarStateChangeListen.MonthScrollFull);//回调日历状态改变
                         } else {
                             //正常上滑
                             saveTop((int) (child.getViewHeight() + ((ev.getY() - downY))));
@@ -124,12 +123,12 @@ public class MonthPagerBehavior<T extends View & OnCalendarStateChangeListen> ex
                             Utils.setScrollToBottom(true);
                             calendarViewAdapter.switchToWeek(child.getRowIndex());
                             Utils.scrollTo(parent, (T) parent.getChildAt(1), child.getCellHeight(), 300);
-                            child.onCalendarStateChange(false,OnCalendarStateChangeListen.MonthScrollNotFull);//回调日历状态改变
+                            child.onCalendarStateChange(false, OnCalendarStateChangeListen.MonthScrollNotFull);//回调日历状态改变
                         } else {
                             Utils.setScrollToBottom(false);
                             calendarViewAdapter.switchToMonth();
                             Utils.scrollTo(parent, (T) parent.getChildAt(1), child.getViewHeight(), 300);
-                            child.onCalendarStateChange(true,OnCalendarStateChangeListen.MonthScrollNotFull);//回调日历状态改变
+                            child.onCalendarStateChange(true, OnCalendarStateChangeListen.MonthScrollNotFull);//回调日历状态改变
                         }
                     }
 

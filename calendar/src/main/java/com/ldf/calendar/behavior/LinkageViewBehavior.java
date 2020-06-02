@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -15,7 +14,7 @@ import com.ldf.calendar.Utils;
 import com.ldf.calendar.interf.OnCalendarStateChangeListen;
 import com.ldf.calendar.view.MonthPager;
 
-public  class LinkageViewBehavior<T extends View & OnCalendarStateChangeListen> extends CoordinatorLayout.Behavior<T> {
+public class LinkageViewBehavior<T extends View & OnCalendarStateChangeListen> extends CoordinatorLayout.Behavior<T> {
     private int initOffset = -1;
     private int olderChildTop = -1;
     private int minOffset = -1;
@@ -95,10 +94,10 @@ public  class LinkageViewBehavior<T extends View & OnCalendarStateChangeListen> 
         //z* 利用偏移量判断日历的展开与收缩状态
         if (child.getTop() == initOffset && child.getTop() != olderChildTop) {
             Log.e("ldf", "展开状态");
-             child.onCalendarStateChange(true,OnCalendarStateChangeListen.LinkageScrollFull);
+            child.onCalendarStateChange(true, OnCalendarStateChangeListen.LinkageScrollFull);
         } else if (child.getTop() == getMonthPager(coordinatorLayout).getCellHeight() && child.getTop() != olderChildTop) {
             Log.e("ldf", "收缩状态");
-		   child.onCalendarStateChange(false,OnCalendarStateChangeListen.LinkageScrollFull);
+            child.onCalendarStateChange(false, OnCalendarStateChangeListen.LinkageScrollFull);
         }
         olderChildTop = child.getTop();
     }
@@ -113,18 +112,18 @@ public  class LinkageViewBehavior<T extends View & OnCalendarStateChangeListen> 
         if (!Utils.isScrollToBottom()) {
             if (initOffset - Utils.loadTop() > Utils.getTouchSlop(context) && hidingTop) {
                 Utils.scrollTo(parent, child, getMonthPager(parent).getCellHeight(), 500);
-                   child.onCalendarStateChange(true,OnCalendarStateChangeListen.LinkageScrollNotFull);//回调日历状态改变
+                child.onCalendarStateChange(true, OnCalendarStateChangeListen.LinkageScrollNotFull);//回调日历状态改变
             } else {
                 Utils.scrollTo(parent, child, getMonthPager(parent).getViewHeight(), 150);
-			     child.onCalendarStateChange(false,OnCalendarStateChangeListen.LinkageScrollNotFull);//回调日历状态改变
+                child.onCalendarStateChange(false, OnCalendarStateChangeListen.LinkageScrollNotFull);//回调日历状态改变
             }
         } else {
             if (Utils.loadTop() - minOffset > Utils.getTouchSlop(context) && showingTop) {
                 Utils.scrollTo(parent, child, getMonthPager(parent).getViewHeight(), 500);
-                child.onCalendarStateChange(true,OnCalendarStateChangeListen.LinkageScrollNotFull);//回调日历状态改变
+                child.onCalendarStateChange(true, OnCalendarStateChangeListen.LinkageScrollNotFull);//回调日历状态改变
             } else {
                 Utils.scrollTo(parent, child, getMonthPager(parent).getCellHeight(), 150);
-               child.onCalendarStateChange(false,OnCalendarStateChangeListen.LinkageScrollNotFull);//回调日历状态改变
+                child.onCalendarStateChange(false, OnCalendarStateChangeListen.LinkageScrollNotFull);//回调日历状态改变
             }
         }
     }
