@@ -43,6 +43,7 @@
 * 新建XML布局
 
 RecyclerView的layout_behavior为com.ldf.calendar.behavior.RecyclerViewBehavior
+也可以使用全适配的layout_behavior为com.ldf.calendar.behavior.LinkageViewBehavior
 
 ```xml
  <android.support.design.widget.CoordinatorLayout
