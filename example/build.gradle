@@ -23,7 +23,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.0.0'
-    implementation project(path: ':calendar')
+    implementation project(path: ':calendarx')
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     //api 'androidx.recyclerview:Recyclerview1.1.0'
 	
